@@ -1,0 +1,15 @@
+
+<view class='log'>
+  <view wx:for='{{list}}' class='{{item.is_me?"per-right":"per-left"}} per'>
+    <image src='{{item.is_me?"https://wx.qlogo.cn/mmopen/vi_32/2Huboy6kFFGK37iaibYvowCXK2T2XUKAGkSSgm8KjS6w70MbXefYtcMy7aRoSia4cjIC16Dra1jNicWX1Aj24powfQ/132":"https://wx.qlogo.cn/mmopen/vi_32/AKhJyxkkOGBWC2tLuQjx7YV1L0XNeSwhOIUVLDd9cicNP4Bicibmjc3rNouBKibk44LZsV7qzCElJeP69icVUU52Htw/132"}}' class='img-logo'></image>
+    <view class='message'>
+      {{item.message}}
+    </view>
+  </view>
+</view>
+
+<view class='chat'>
+  <image class='img-voice' src='/images/voice.png'></image>
+  <input type='text'class='ipt-message' cursor-spacing='10rpx' bindinput='getMessage' value='{{message}}' />
+  <view class='btn-submit' bindtap='sendMessage'>发送</view>
+</view>
