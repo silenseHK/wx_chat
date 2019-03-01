@@ -37,14 +37,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.connectSocket({
-      url: 'ws://127.0.0.1:7272',
-      header: {
-        'content-type': 'application/json'
-      },
-      // protocols: ['protocol1'],
-      method: 'GET'
-    })
+    let uid = options.uid
+    let that = this;
+    this.setData({uid})
+    
   },
 
   /**
@@ -52,6 +48,36 @@ Page({
    */
   onReady: function () {
 
+    let that = this
+
+    wx.connectSocket({
+      url: 'ws://127.0.0.1:7272',
+      header: {
+        'content-type': 'application/json'
+      },
+      // protocols: ['protocol1'],
+      method: 'GET',
+    })
+
+    wx.onSocketMessage(function(res){
+      let reg = /^["|'](.*)["|']$/g;
+      let data = res.data.replace(reg, '$1')
+      console.log(data)
+      data = JSON.parse(data)
+      console.log(data)
+      let [type] = [data.type]
+      console.log(type)
+      switch(type){
+        case 'LOGIN':
+          that.bindUidClientId()
+          break;
+        case 'TIP':
+          return;
+        case 'MESSAGE':
+          that.addMessage(data.data)
+          break;
+      }
+    })
   },
 
   /**
@@ -108,7 +134,7 @@ Page({
    * 发送信息
    */
   sendMessage(){
-    let [message,list] = [this.data.message,this.data.list]
+    let [message,list,uid] = [this.data.message,this.data.list,this.data.uid]
     if(!message)return
     let arr = {
       'is_me': true,
@@ -117,15 +143,16 @@ Page({
     list = list.concat(arr)
     this.setData({list,message:''})
     let that = this
-    this.checkSocket(that.sendSocketMessage,message)
+    let data = {type:'TALK',message}
+    data = JSON.stringify(data)
+    this.checkSocket(data)
   },
 
   /**
    * 检查socket
    */
-  checkSocket(fn,msg){
-    console.log(222)
-    fn(msg)
+  checkSocket(msg){
+    this.sendSocketMessage(msg)
   },
 
   /**
@@ -135,5 +162,31 @@ Page({
     wx.sendSocketMessage({
       data: msg
     })
+  },
+
+  /**
+   * 设置client_id与uid绑定
+   */
+  bindUidClientId(){
+    let uid = this.data.uid
+    console.log(12)
+    let data = { type: 'BIND_UID', uid }
+    data = JSON.stringify(data);
+    this.checkSocket(data)
+  },
+
+  /**
+   * 添加聊天信息
+   */
+  addMessage(data){
+    if(data.uid == this.data.uid)
+      return
+    let [message,list] = [data.message,this.data.list]
+    let arr = {
+      'is_me': false,
+      'message': message
+    }
+    list = list.concat(arr)
+    this.setData({list})
   },
 })
