@@ -1,4 +1,7 @@
 // pages/chat/chat.js
+
+const socketOpen = false
+const socketMsgQueue = []
 Page({
 
   /**
@@ -113,5 +116,24 @@ Page({
     }
     list = list.concat(arr)
     this.setData({list,message:''})
+    let that = this
+    this.checkSocket(that.sendSocketMessage,message)
+  },
+
+  /**
+   * 检查socket
+   */
+  checkSocket(fn,msg){
+    console.log(222)
+    fn(msg)
+  },
+
+  /**
+   * 发送信息
+   */
+  sendSocketMessage(msg){
+    wx.sendSocketMessage({
+      data: msg
+    })
   },
 })
