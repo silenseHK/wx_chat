@@ -2,6 +2,9 @@
 
 const socketOpen = false
 const socketMsgQueue = []
+
+
+
 Page({
 
   /**
@@ -30,7 +33,17 @@ Page({
         'is_me': true,
         'message': '如果'
       },
-    ]
+    ],
+    images:['https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLJ7EnIXSN1DzqfxtGPpibs3kUicpCXg7N5Cdbyobmf6OT3cuicjsotHR3pcQeVjVOtNJDQlAc6QrkuA/132',
+      'https://wx.qlogo.cn/mmopen/vi_32/ulAfJ2ls3WiarEV4aBJAUL3lbXafA8kjJmibmXD8icJqyq68Xok82z9SXoLhzT33EqnmC2AGy5dDhcKOSIV7ChhtQ/132',
+      'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcOJZkwl1ZicU4Duw6vfia72gB81paeXibEtTSvhagiaObTw2Wk4U5Kvu0k8JBLUFBZIXz3nCtHZZNsw/132',
+      'https://wx.qlogo.cn/mmopen/vi_32/YO5UGlLK6DYSzy2KagRwD9VtINfFySCpAmics9QaGdlrj2NVqXkotdQNACzq6UXJdDZmEicPiacWYc1xhLdtvFPuw/132',
+      'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoiajdL5pSZem7zXRdhwFQARfL5XCVMiahTu1bLyFWlrm6woDyrCumJfJAybFZqBwbzodYRuvM18GicQ/132'
+    ],
+    members:[
+      '234','123','321','543','678'
+    ],
+    shwoMemberList:true
   },
 
   /**
@@ -50,6 +63,8 @@ Page({
 
     let that = this
 
+    
+
     wx.connectSocket({
       url: 'ws://127.0.0.1:7272',
       header: {
@@ -62,19 +77,28 @@ Page({
     wx.onSocketMessage(function(res){
       let reg = /^["|'](.*)["|']$/g;
       let data = res.data.replace(reg, '$1')
-      console.log(data)
       data = JSON.parse(data)
       console.log(data)
       let [type] = [data.type]
       console.log(type)
       switch(type){
         case 'LOGIN':
-          that.bindUidClientId()
+          that.bindUidClientId(data.data)
           break;
         case 'TIP':
           return;
         case 'MESSAGE':
           that.addMessage(data.data)
+          break;
+        case 'INFO':
+          wx.showToast({
+            title:data.data,
+            icon:'none',
+            duration:2000
+          })
+          break;
+        case 'MEMBERS':
+          that.updateMember(data.data)
           break;
       }
     })
@@ -167,7 +191,8 @@ Page({
   /**
    * 设置client_id与uid绑定
    */
-  bindUidClientId(){
+  bindUidClientId(data1){
+    this.setData({ client_id: data1.client_id})
     let uid = this.data.uid
     console.log(12)
     let data = { type: 'BIND_UID', uid }
@@ -189,4 +214,65 @@ Page({
     list = list.concat(arr)
     this.setData({list})
   },
+
+  /**
+   * 关闭memberlist
+   */
+  closeMemberList(){
+    const animation = wx.createAnimation({
+      duration: 700,
+      timingFunction: 'ease',
+    })
+
+    this.animation = animation
+    animation.width('80rpx').step()
+    this.setData({
+      animationData: animation.export(),
+      shwoMemberList:false
+    })
+  },
+
+  /**
+   * 开启memberList
+   */
+  openMemberList(){
+    const animation = wx.createAnimation({
+      duration: 700,
+      timingFunction: 'ease',
+    })
+
+    this.animation = animation
+    animation.width('750rpx').step()
+    this.setData({
+      animationData: animation.export(),
+      shwoMemberList: true
+    })
+  },
+
+  /**
+   * 更新在心人数
+   */
+  updateMember(data){
+    let members = data.members
+    let members_new = [];
+    for(var mem in members){
+      members_new.push(mem);
+    }
+    this.setData({ members:members_new})
+  },
+
+  /**
+   * 踢出成员
+   */
+  delMember(e){
+    let member_client_id = e.currentTarget.dataset.index
+    let client_id = this.data.client_id
+    if(client_id == member_client_id)
+      return;
+    let data = { type: 'DEL_MEMBER', client_id: member_client_id }
+    data = JSON.stringify(data);
+    console.log(322323)
+    this.checkSocket(data)
+  },
+
 })

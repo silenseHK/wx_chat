@@ -8,6 +8,14 @@
   </view>
 </view>
 
+<view class='person' animation="{{animationData}}">
+  <image wx:for='{{members}}' src='{{images[index]}}' data-index='{{item}}' class='img-person' bindtap='delMember'></image>
+  <view class='wrap-close {{shwoMemberList?"":"wrap-close-on"}}'>
+    <view class='close' wx:if='{{shwoMemberList}}' bindtap='closeMemberList'>X</view>
+    <view class='close' wx:if='{{!shwoMemberList}}' bindtap='openMemberList'>√</view>
+  </view>
+</view>
+
 <view class='chat'>
   <image class='img-voice' src='/images/voice.png'></image>
   <input type='text'class='ipt-message' cursor-spacing='10rpx' bindinput='getMessage' value='{{message}}' />

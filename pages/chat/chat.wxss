@@ -71,3 +71,48 @@ page{
   padding:10rpx;
   margin:0 20rpx;
 }
+
+.person{
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height:80rpx;
+  position:fixed;
+  top:0;
+  right:0;
+  background:rgba(0,0,0,.3);
+  overflow: hidden;
+}
+.img-person{
+  width:60rpx;
+  height:60rpx;
+  border-radius: 50%;
+  background:#fff;
+  margin-right:20rpx;
+}
+.wrap-close{
+  width:80rpx;
+  height:80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position:absolute;
+  left:0rpx;
+  top:0rpx;
+}
+.wrap-close-on{
+  background: #aaa;
+}
+.close{
+  width:40rpx;
+  height:40rpx;
+  text-align: center;
+  line-height:40rpx;
+  background:red;
+  color:#fff;
+  border-radius: 50%;
+  font-size:24rpx;
+}
