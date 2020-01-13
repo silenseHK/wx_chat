@@ -15,3 +15,7 @@
   height: 0;
   color: transparent;
 }
+
+image{
+  display: block;
+}

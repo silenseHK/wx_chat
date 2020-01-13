@@ -1,13 +1,16 @@
 {
-  "pages":[
+  "pages": [
+    "pages/chat/chat",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/chat/chat"
+    "pages/friend/friend",
+    "pages/login/login"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#eee",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
-  }
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
 }

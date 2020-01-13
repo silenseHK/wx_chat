@@ -1,0 +1,48 @@
+/* pages/friend/friend.wxss */
+.wrap-fri{
+  width:690rpx;
+  margin:0 30rpx;
+}
+.fri{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height:120rpx;
+}
+.avatar-fri{
+  width:80rpx;
+  height:80rpx;
+  border-radius: 12rpx;
+}
+.right-fri{
+  height:119rpx;
+  width:590rpx;
+  margin-left:20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 1rpx solid #ddd;
+  position: relative;
+}
+.nickname{
+  font-size: 32rpx;
+  color:#000;
+}
+.message{
+  font-size: 22rpx;
+  color:#999;
+  margin-top:10rpx;
+  line-height:22rpx;
+  height:22rpx;
+  overflow: hidden;
+}
+.time-fri{
+  position: absolute;
+  right:0rpx;
+  top:30rpx;
+  font-size:22rpx;
+  color:#999;
+}

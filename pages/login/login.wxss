@@ -1,0 +1,16 @@
+/* pages/login/login.wxss */
+.img-login{
+  width:150rpx;
+  height:150rpx;
+  border-radius: 100%;
+  display: block;
+  margin:300rpx auto;
+  border:1px solid #ddd;
+}
+
+.wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}

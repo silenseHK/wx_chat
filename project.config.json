@@ -13,12 +13,14 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.1",
-	"appid": "wx066032ab9cd42e8c",
+	"appid": "wxe2c511bfce56a73e",
 	"projectname": "chat",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -36,6 +38,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 0,
 			"list": [
@@ -43,6 +49,20 @@
 					"id": 0,
 					"name": "chat",
 					"pathName": "pages/chat/chat",
+					"query": "uid=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/friend/friend",
+					"pathName": "pages/friend/friend",
+					"query": "uid=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/login/login",
+					"pathName": "pages/login/login",
 					"query": "uid=1",
 					"scene": null
 				}
