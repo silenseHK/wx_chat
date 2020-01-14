@@ -22,38 +22,52 @@ module.exports = {
       }
     })
 
-    wx.onSocketMessage(function(res){
-      // let reg = /^["|'](.*)["|']$/g;
-      // let data = res.data.replace(reg, '$1')
-      // data = JSON.parse(data)
-      console.log(res);
-      let data = res.data;
-      data = JSON.parse(data)
-      let [type] = [data.type]
-      console.log(data)
-      switch(type){
-        case 'LOGIN':
-          that.bindUidClientId(data)
-          break;
-        case 'TIP':
-          return;
-        case 'MESSAGE':
-          that.addMessage(data.data)
-          break;
-        case 'INFO':
-          wx.showToast({
-            title:data.data,
-            icon:'none',
-            duration:2000
-          })
-          break;
-        case 'MEMBERS':
-          that.updateMember(data.data)
-          break;
-      }
-    })
+    // wx.onSocketMessage(function(res){
+    //   // let reg = /^["|'](.*)["|']$/g;
+    //   // let data = res.data.replace(reg, '$1')
+    //   // data = JSON.parse(data)
+    //   console.log(res);
+    //   let data = res.data;
+    //   data = JSON.parse(data)
+    //   let [type] = [data.type]
+    //   console.log(data)
+    //   switch(type){
+    //     case 'LOGIN':
+    //       that.bindUidClientId(data)
+    //       break;
+    //     case 'TIP':
+    //       return;
+    //     case 'MESSAGE':
+    //       that.addMessage(data.data)
+    //       break;
+    //     case 'INFO':
+    //       wx.showToast({
+    //         title:data.data,
+    //         icon:'none',
+    //         duration:2000
+    //       })
+    //       break;
+    //     case 'MEMBERS':
+    //       that.updateMember(data.data)
+    //       break;
+    //   }
+    // })
   },
 
-  
+  /**
+   * 检查socket
+   */
+  checkSocket(msg){
+    module.exports.sendSocketMessage(msg)
+  },
+
+  /**
+   * 发送信息
+   */
+  sendSocketMessage(msg){
+    wx.sendSocketMessage({
+      data: msg
+    })
+  },
 
 }

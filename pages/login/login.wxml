@@ -1,4 +1,5 @@
 <view class='wrap'>
-    <image bindtap='login' class='img-login' src='/images/login.jpg'></image>
-    <button type="primary" size='mini' open-type="getUserInfo" bindgetuserinfo='bindgetuserinfo'>登录</button>
+    <image bindtap='login' class='img-login' src='{{avatar}}'></image>
+    <text class='nickname'>{{nickname}}</text>
+    <button wx:if="{{!is_login}}" type="primary" size='mini' open-type="getUserInfo" bindgetuserinfo='bindgetuserinfo'>登录</button>
 </view>

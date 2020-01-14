@@ -4,8 +4,12 @@
   height:150rpx;
   border-radius: 100%;
   display: block;
-  margin:300rpx auto;
+  margin:300rpx auto 0;
   border:1px solid #ddd;
+}
+.nickname{
+  margin-bottom:250rpx;
+  line-height:40rpx;
 }
 
 .wrap{

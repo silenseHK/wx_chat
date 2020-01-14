@@ -1,10 +1,10 @@
 <view class='wrap'>
   <view class='wrap-fri'>
-    <view class='fri'>
-      <image class='avatar-fri' src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcOJZkwl1ZicU4Duw6vfia72gB81paeXibEtTSvhagiaObTw2Wk4U5Kvu0k8JBLUFBZIXz3nCtHZZNsw/132'></image>
+    <view class='fri' wx:for="{{user_list}}" wx:for-item="vo">
+      <image class='avatar-fri' src='{{vo.avatar}}'></image>
       <view class='right-fri'>
-        <view class='nickname'>一号同学</view>
-        <view class='message'>霞霞今天又摸鱼哈！</view>
+        <view class='nickname'>{{vo.nickname}}</view>
+        <view class='message'>{{vo.message?vo.message:"wuwuwwuwuuwuw"}}</view>
         <view class='time-fri'>17:34</view>
       </view>
     </view>
